@@ -1,0 +1,8 @@
+/build*/
+/out/
+*.log
+/.vs/
+/.vscode/
+CMakeUserPresets.json
+*.flac
+*.flac.part
