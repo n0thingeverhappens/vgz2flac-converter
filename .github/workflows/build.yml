@@ -11,10 +11,11 @@ jobs:
   windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Configure
-        run: cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+        # default generator = the newest Visual Studio installed on the runner
+        run: cmake -S . -B build -A x64
 
       - name: Build
         run: cmake --build build --config Release
@@ -32,7 +33,7 @@ jobs:
           Copy-Item README.md dist/
           Compress-Archive -Path dist/* -DestinationPath vgz2flac-windows-x64.zip -Force
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: vgz2flac-windows-x64
           path: vgz2flac-windows-x64.zip
@@ -40,7 +41,7 @@ jobs:
   linux:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y cmake g++ git
@@ -57,7 +58,7 @@ jobs:
       - name: Package
         run: tar -czf vgz2flac-linux-x64.tar.gz -C build vgz2flac -C .. README.md
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: vgz2flac-linux-x64
           path: vgz2flac-linux-x64.tar.gz
@@ -69,7 +70,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v5
         with:
           path: artifacts
           merge-multiple: true
